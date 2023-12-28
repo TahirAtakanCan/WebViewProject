@@ -17,6 +17,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         webView = WKWebView()
         webView.navigationDelegate = self
+        
+        let contentController = webView.configuration.userContentController
+        contentController.add(self , name: "buttonClicked")
+        
         view = webView
         
         let url = URL(string: "https://2.elveri.com/")!
