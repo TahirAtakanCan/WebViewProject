@@ -32,7 +32,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         super.viewDidAppear(animated)
         
         // Bir gecikme ekleyerek JavaScript kodunu çalıştır
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.webView.evaluateJavaScript(self.addButtonScript) { (result, error) in
                 if let error = error {
                     print("JavaScript Error: \(error)")
@@ -59,11 +59,11 @@ class ViewController: UIViewController, WKNavigationDelegate {
         }
     """
     
-    func openTapped() {
-        let ac = UIAlertController(title: "JS", message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "addButtonScript", style: .default, handler: clickedButton))
+    /*func openTapped() {
+        let ac = UIAlertController(title: "JS", message: nil, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "ButtonClicked", style: .default, handler: clickedButton))
         present(ac, animated: true)
-    }
+    }*/
     
     func clickedButton(action: UIAlertAction) {
         // Bu metodun içine tıklanan butonun özel işlevselliği eklenir (örneğin, alert gösterme)
@@ -78,7 +78,7 @@ extension ViewController: WKScriptMessageHandler {
         // JavaScript tarafından postMessage ile gönderilen mesajı işle
         if message.name == "buttonClicked" {
             // JavaScript tarafından gönderilen mesaj, burada işlenir
-            openTapped()
+            clickedButton(action: UIAlertAction())
         }
     }
 }
